@@ -1,0 +1,37 @@
+/* ----------------------------------- nav ---------------------------------- */
+
+nav {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: flex-end;
+   gap: 16px 32px;
+}
+
+/* ------------------------------- source-otd ------------------------------- */
+
+section {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 64px;
+   margin: 32px 16px;
+}
+
+.source-otd,
+.about {
+   flex: 1;
+   border-left: 2px solid var(--border-color);
+   padding: 16px;
+}
+.source-otd h2,
+.about h2 {
+   margin-bottom: 16px;
+}
+
+/* --------------------------------- @media --------------------------------- */
+
+@media screen and (width <= 734px) {
+   .source-otd,
+   .about {
+      flex-basis: 100%;
+   }
+}

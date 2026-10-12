@@ -1,0 +1,49 @@
+/* --------------------------------- section -------------------------------- */
+
+section {
+   margin: 64px 16px;
+}
+.initial-container {
+   margin: 128px 0;
+}
+ul {
+   display: flex;
+   flex-direction: column;
+   gap: 32px;
+   margin: 32px 0;
+   padding: 0 16px;
+   border-left: 2px solid var(--border-color);
+}
+li {
+   border-radius: var(--b);
+   border-left: 1px solid oklch(from var(--border-color) l c h / 0.5);
+   padding: 16px 8px;
+   background-color: oklch(from var(--background-light) calc(l + 0.1) c h / 0.5);
+   list-style-type: none;
+}
+li p.short-info {
+   color: oklch(from var(--text-color) l c h / 0.5);
+   transition: color 400ms var(--ease-in);
+}
+li:hover p,
+li:hover a {
+   color: var(--text-color);
+   transition: color 200ms var(--ease-out);
+}
+h3 {
+   display: inline-block;
+   font-weight: 500;
+   margin-bottom: 16px;
+}
+
+.line {
+   max-width: 50%;
+}
+
+/* --------------------------------- @media --------------------------------- */
+
+@media screen and (width <= 400px) {
+   section {
+      margin: 64px 0;
+   }
+}
