@@ -21,7 +21,8 @@ li {
    background-color: oklch(from var(--background-light) calc(l + 0.1) c h / 0.5);
    list-style-type: none;
 }
-li p.short-info {
+li p.short-info,
+.index p {
    color: oklch(from var(--text-color) l c h / 0.5);
    transition: color 400ms var(--ease-in);
 }
@@ -29,6 +30,13 @@ li:hover p,
 li:hover a {
    color: var(--text-color);
    transition: color 200ms var(--ease-out);
+}
+li:hover .tag {
+   background-color: oklch(from var(--background-color) l c h);
+   transition: background-color 200ms var(--ease-out);
+}
+li:hover .tag p {
+   color: oklch(from var(--background-color) calc(l + 0.3) c h);
 }
 h3 {
    display: inline-block;
@@ -40,8 +48,55 @@ h3 {
    max-width: 50%;
 }
 
+/* ------------------------------ index / tags ------------------------------ */
+
+.index li {
+   display: flex;
+   align-items: center;
+   gap: 16px;
+}
+.tag {
+   display: inline-block;
+   border-radius: 4px;
+   padding: 4px;
+   transition: background-color 400ms var(--ease-in);
+}
+.tag p {
+   color: oklch(from var(--background-color) calc(l + 0.3) c h / 0.5);
+}
+.master {
+   --background-color: oklch(from var(--theme-middle) l c calc(h - h + 80));
+   background-color: oklch(from var(--background-color) l c h / 0.5);
+}
+.experienced {
+   --background-color: oklch(from var(--theme-middle) l c calc(h - h));
+   background-color: oklch(from var(--background-color) l c h / 0.5);
+}
+.novice {
+   --background-color: oklch(from var(--theme-middle) l c calc(h - h + 300));
+   background-color: oklch(from var(--background-color) l c h / 0.5);
+}
+
 /* --------------------------------- @media --------------------------------- */
 
+/* make it so that the filters are in a drop-down menu below 550px */
+
+@media screen and (width <= 550px) {
+   .filters {
+      position: absolute;
+      flex-wrap: nowrap;
+      flex-direction: column;
+      align-items: flex-end;
+   }
+   .filters a {
+      width: fit-content;
+   }
+}
+@media screen and (width <= 500px) {
+   .index li {
+      flex-wrap: wrap;
+   }
+}
 @media screen and (width <= 400px) {
    section {
       margin: 64px 0;
