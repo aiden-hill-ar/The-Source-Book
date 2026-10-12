@@ -47,7 +47,7 @@ function setNameOrder() {
       const num = Math.floor(Math.random() * nums.length);
       let name = doc.createElement("a");
       name.innerText = lists[nums[num]].querySelector("h3 a").innerText;
-      name.setAttribute("href", `./results.html#${name.innerText}`);
+      name.setAttribute("href", `./pages/results.html#${name.innerText}`);
       name.target = "_self";
       nameSpan.append(name);
       nums.splice(num, 1);
