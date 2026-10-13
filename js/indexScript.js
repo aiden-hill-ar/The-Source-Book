@@ -1,3 +1,14 @@
+let lists;
+
+fetch('./pages/results.html')
+   .then(res => res.text())
+   .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      lists = Array.from(doc.querySelectorAll('.initial-container li'));
+      console.log(lists);
+});
+/*
 const doc = document;
 
 let lists;
@@ -7,11 +18,11 @@ const sourceOtd = doc.querySelector(".source-otd");
 
 function setSourceOtd(personList) {
    list = lists[list];
-   const header = list.querySelector("h3");
+   const header = list.querySelector("h3 a");
    const text = list.querySelector("p");
    sourceOtd.classList.add("set");
    const person = sourceOtd.querySelector(".person a");
-   person.setAttribute("href", `./pages/results.html#${header.innerText}`);
+   person.setAttribute("href", `./pages/results.html#${header.text}`);
    const sourceOtdText = sourceOtd.querySelector("p");
 
    person.innerText = header.innerText;
@@ -30,7 +41,7 @@ let listExsisting = localStorage.getItem(setList);
 
 if (exsisting === null) {
    localStorage.setItem(lastDate, JSON.stringify(Date.now()));
-   localStorage.setItem(lastList, JSON.stringify(list));
+   localStorage.setItem(currentList, JSON.stringify(list));
 } else {
    lastDate = JSON.parse(exsisting);
 }
@@ -67,7 +78,6 @@ async function loadDoc() {
    } else {
       currentList = JSON.parse(listExsisting);
    }
-   console.log(list);
    if ((Date.now() - lastDate) >= day) {
       setList();
       setSourceOtd(list);
@@ -77,3 +87,4 @@ async function loadDoc() {
    setNameOrder();
 };
 loadDoc();
+*/
