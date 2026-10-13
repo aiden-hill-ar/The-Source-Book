@@ -22,29 +22,17 @@ ul {
    padding: 0 32px;
    border-left: 2px solid var(--border-color);
 }
-ul li:first-child {
-   border-radius: 10px 10px 0 0;
-   border-top: 2px solid var(--border-color)
-}
-ul li:last-child {
-   border-radius: 0 0 10px 10px;
-}
-ul li:only-child {
-   border-radius: 10px;
-}
 li {
-   border: 2px solid var(--border-color);
+   position: relative;
+   border-bottom: 2px solid var(--border-color);
    border-top: none;
    padding: 16px;
-   background-color: oklch(from var(--background-light) l c h);
    list-style-type: none;
-   box-shadow: 
-      0.3px 1px 1px oklch(from var(--background-light) calc(l + 0.03) c h / 0.3),
-      1px 3px 3px oklch(from var(--background-light) calc(l + 0.04) c h / 0.4),
-      -1px -3px 3px oklch(from var(--background-light) calc(l + 0.04) c h / 0.2);
+   transition: background-color 200ms var(--ease-in);
 }
 li:hover {
-   background-color: oklch(from var(--background-light) calc(l + 0.005) c h);
+   background-color: oklch(from var(--background-dark) calc(l + 0.01) c h);
+   transition: background-color 200ms var(--ease-out);
 }
 .list-top-bar {
    margin-bottom: 8px;
@@ -72,12 +60,16 @@ li .chevron {
    padding: 4px;
 }
 li .chevron svg {
-   stroke: oklch(from var(--text-color) calc(l - 0.2) c h);
+   stroke: oklch(from var(--text-color) calc(l - 0.2) c h / 0.3);
    stroke-width: 2px;
    fill: none;
    stroke-linecap: round;
    stroke-linejoin: round;
-   transition: stroke 400ms var(--ease-in);
+   transition: stroke 200ms var(--ease-in);
+}
+li:hover .chevron svg {
+   stroke: oklch(from var(--text-color) calc(l - 0.2) c h);
+   transition: stroke 200ms var(--ease-out);
 }
 li .chevron:hover svg {
    stroke: oklch(from var(--text-color) calc(l - 0) c h);
@@ -112,11 +104,11 @@ h3 {
    height: fit-content;
    border-radius: 6px;
    padding: 4px 8px;
-   transition: background-color 400ms var(--ease-in);
+   transition: background-color 200ms var(--ease-in);
 }
 .tag p {
    color: oklch(from var(--background-color) calc(l + 0.3) c h / 0.5);
-   transition: color 400ms var(--ease-in);
+   transition: color 200ms var(--ease-in);
 }
 .master {
    --background-color: oklch(from var(--theme-middle) l c calc(h - h + 80));

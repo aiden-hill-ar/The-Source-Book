@@ -33,8 +33,9 @@ body {
    display: flex;
    justify-content: center;
    min-height: 100vh;
-   background-color: var(--background-dark);
+   background-color: oklch(from var(--background-dark) calc(l - 0.01) c h);
 }
+/*
 .backdrop {
    position: absolute;
    width: 100%;
@@ -48,6 +49,7 @@ body {
    );
    z-index: -1;
 }
+*/
 
 h1, h2, h3,
 p, li {
