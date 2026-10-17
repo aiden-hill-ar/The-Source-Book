@@ -14,25 +14,21 @@ input {
     flex: 1;
     font-size: 1.25rem;
     font-weight: 500;
-    border-radius: 999px;
-    border: 2px solid var(--border);
+    border-radius: 8px;
+    border: 2px solid oklch(from var(--theme) 0.8 0.06 h);
     padding: 4px 8px;
     background-color: oklch(from var(--theme) 1 0.03 h);
-    box-shadow: 1px 3px 3px oklch(from var(--border) l c h / 0.2) inset;
 }
 h1 {
     font-size: 2.25rem;
     font-family: "Aleo";
     white-space: nowrap;
-    text-shadow: 1px 3px 3px oklch(from var(--text) l c h / 0.2);
 }
 h2 {
     font-size: 1.75rem;
-    text-shadow: 1px 3px 3px oklch(from var(--text) l c h / 0.1);
 }
 h3 {
     font-size: 2rem;
-    text-shadow: 1px 3px 3px oklch(from var(--text) l c h / 0.1);
 }
 a {
     position: relative;
@@ -82,8 +78,8 @@ ul.menu-options {
     position: absolute;
     top: 100%;
     right: 0%;
-    border-radius: var(--radius-m) 0 var(--radius-m) var(--radius-m);
-    padding: 8px;
+    border-radius: 4px;
+    padding: 8px 16px;
     background-color: oklch(from var(--theme) calc(l - 0.1) c h);
     z-index: 100;
 }
@@ -92,8 +88,10 @@ ul.menu-options {
 }
 
 html {
-    --theme: oklch(0.755 0.126 230);
+    --theme: oklch(0.8 0.13 230);
     --text: oklch(from var(--theme) 0.2 0.03 h);
+
+    --background-color: oklch(from var(--theme) l calc(c - 0.03) h);
 
     --border: oklch(from var(--theme) calc(l - 0.355) c h);
 
@@ -102,27 +100,33 @@ html {
 
     --ease-in: cubic-bezier(0.6, 0, 0.8, 1);
     --ease-out: cubic-bezier(.4,0,.2,1);
+
+    --gutter: 32px;
 }
 
 html[data-theme="dark"] {
-    --theme: oklch(0.255 0.126 230);
+    --theme: oklch(0.2 0.13 230);
     --text: oklch(from var(--theme) 1 0.03 h);
 
     --border: oklch(from var(--theme) calc(l - 0.1) c h);
     input {
+        border: 2px solid oklch(from var(--theme) 0.25 0.12 h);
         background-color: oklch(from var(--theme) 0.2 0.12 h);
     }
     body {
         background: radial-gradient(
             90vw at 0px 0px,
-            oklch(from var(--theme) calc(l + 0.1) c h / 1),
-            oklch(from var(--theme) calc(l + 0.1) c h / 0) 100%
+            oklch(from var(--theme) calc(l + 0.06) c h / 1),
+            oklch(from var(--theme) calc(l + 0.06) c h / 0) 100%
         );
-        background-color: oklch(from var(--theme) l c h);
+        background-color: var(--background-color);
     }
-    body::before {
-        display: none;
+    @media (hover: hover) {
+    button:hover {
+        background-color: oklch(from var(--theme) calc(l + 0.1) calc(c - 0) h);
+        transition: background-color 100ms var(--ease-out);
     }
+}
 }
 
 body {
@@ -133,15 +137,34 @@ body {
     background: radial-gradient(
         90vw at 0px 0px,
         oklch(from var(--theme) l c h / 1),
-        oklch(from var(--theme) l c h / 0) 100%
+        oklch(from var(--theme) calc(l + 0) c h / 0) 100%
     );
+    background-color: var(--background-color);
 }
 body::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-color: oklch(from var(--theme) l c h);
-    opacity: 0.7;
+    background: linear-gradient(
+        to bottom,
+        var(--background-color) 0px,
+        transparent 10px
+    ),
+    linear-gradient(
+        to top,
+        var(--background-color) 0px,
+        transparent 10px
+    ),
+    linear-gradient(
+        to right,
+        var(--background-color) 0px,
+        transparent 10px
+    ),
+    linear-gradient(
+        to left,
+        var(--background-color) 0px,
+        transparent 10px
+    );
 }
 
 .page {
@@ -149,16 +172,17 @@ body::before {
     flex: 1;
     grid-template-rows: repeat(1, minmax(min-content, max-content)) 1fr;
     max-width: 1000px;
-    margin: 32px;
+    margin: var(--gutter);
     z-index: 1;
 }
 
 /* --------------------------------- buttons -------------------------------- */
 
 button {
+    display: flex;
     font-size: 1rem;
     font-weight: 500;
-    border-radius: var(--radius-s);
+    border-radius: 4px;
     border: none;
     padding: 8px;
     background-color: oklch(from var(--theme) l c h / 0);
@@ -169,17 +193,13 @@ button {
 
 @media (hover: hover) {
     button:hover {
-        background-color: oklch(from var(--theme) l c h);
+        background-color: oklch(from var(--theme) calc(l + 0.1) calc(c - 0.05) h);
         transition: background-color 100ms var(--ease-out);
     }
 }
 
 button.shown {
     background-color: oklch(from var(--theme) calc(l - 0.1) c h);
-}
-.menu button.shown {
-    border-radius: var(--radius-s) var(--radius-s) 0 0;
-    transition: border-radius 100ms var(--ease-out);
 }
 
 /* ----------------------------------- nav ---------------------------------- */
@@ -231,13 +251,9 @@ nav .options {
     display: none;
     flex-wrap: wrap;
     flex-direction: column;
-    gap: 64px 0;
+    gap: 32px 0;
 }
 
-.content section {
-    padding: 16px;
-    border-left: 2px solid var(--border);
-}
 .content section p {
     max-width: 40rem;
 }
@@ -263,6 +279,12 @@ nav .options {
     display: block;
 }
 
+/* ------------------------------ home content ------------------------------ */
+
+.content.home .header {
+    margin-bottom: 8px;
+}
+
 /* ----------------------------- sources content ---------------------------- */
 
 .source-name {
@@ -271,27 +293,21 @@ nav .options {
 }
 
 .content li {
-    border: 2px solid oklch(from var(--border) l c h / 0.5);
+    border-bottom: 2px solid oklch(from var(--border) l c h / 1);
     border-top: none;
+    margin: 0 calc(-1 * var(--gutter));
     padding: 16px;
 }
 
 .content li:first-child {
-    border-radius: var(--radius-s) var(--radius-s) 0 0;
-    border-top: 2px solid oklch(from var(--border) l c h / 0.5);
-}
-.content li:last-child {
-    border-radius: 0 0 var(--radius-s) var(--radius-s);
-}
-.content li:only-child {
-    border-radius: var(--radius-s);
+    border-top: 2px solid oklch(from var(--border) l c h / 1);
 }
 
 /* ---------------------------------- media --------------------------------- */
 
 @media screen and (orientation: portrait) {
-    .page {
-        margin: 16px;
+    :root {
+        --gutter: 16px;
     }
 }
 
@@ -303,7 +319,6 @@ nav .options {
         font-size: 1.25rem;
         font-weight: 500;
         height: fit-content;
-        text-shadow: 0.3px 1px 3px oklch(from var(--text) l c h / 0.2);
     }
     header .header {
         flex-basis: 100%;

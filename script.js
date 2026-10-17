@@ -47,7 +47,6 @@ menus.forEach(menu => {
         const button = e.target.closest("button.menu-button");
         if (!button) return;
         const menu = button.closest(".menu");
-        button.classList.toggle("shown");
         menu.querySelector(".menu-options").classList.toggle("shown");
     });
 });
